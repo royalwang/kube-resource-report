@@ -148,7 +148,10 @@ class KubeconfigDiscoverer:
             context_config = KubeConfig(config.doc, context)
             client = HTTPClient(context_config)
             cluster = Cluster(
-                generate_cluster_id(context), context, context_config.cluster["server"], client
+                generate_cluster_id(context),
+                context,
+                context_config.cluster["server"],
+                client,
             )
             yield cluster
 

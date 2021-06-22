@@ -592,9 +592,7 @@ def write_tsv_files(
         )
         for cluster_id, summary in sorted(cluster_summaries.items()):
             for rg in summary["routegroups"]:
-                writer.writerow(
-                    [cluster_id, summary["cluster"].api_server_url] + rg
-                )
+                writer.writerow([cluster_id, summary["cluster"].api_server_url] + rg)
 
     with out.open("teams.tsv") as csvfile:
         writer = csv.writer(csvfile, delimiter="\t")
