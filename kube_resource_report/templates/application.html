@@ -115,7 +115,7 @@
                 <th>Cluster</th>
                 <th>Namespace</th>
                 <th>Name</th>
-                <th>Hosts</th>
+                <th>Host</th>
                 <th></th>
             </tr>
         </thead>
@@ -126,7 +126,7 @@
                 <td><a href="./cluster-{{ rg.cluster_id }}.html">{{ rg.cluster_summary.cluster.name }}</a></td>
                 <td>{{ rg.namespace }}</td>
                 <td>{{ rg.name }}</td>
-                <td>{{ rg.hosts }}</td>
+                <td>{{ rg.host }}</td>
                 {% if links['routegroups']: %}
                 <td class="links">
                     <div class="buttons has-addons">

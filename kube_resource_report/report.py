@@ -855,7 +855,7 @@ def write_json_files(
                                 "cluster": row["cluster_id"],
                                 "namespace": row["namespace"],
                                 "name": row["name"],
-                                "hosts": row["hosts"],
+                                "host": row["host"],
                             }
                             for row in routegroups_by_application[app_id]
                         ],

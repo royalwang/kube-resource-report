@@ -532,22 +532,33 @@ def query_cluster(
             application = get_application_from_labels(_rg.labels)
             hosts = _rg.obj["spec"]["hosts"]
 
-            for backend in _rg.obj["spec"]["backends"]:
-                if not application:
+            applications = set()
+            if application:
+                applications.add(application)
+
+            if not applications:
+                for backend in _rg.obj["spec"]["backends"]:
                     # find the application by getting labels from pods
                     backend_application = find_routegroup_backend_application(
                         cluster.client, _rg, backend
                     )
-                else:
-                    backend_application = None
+                    if backend_application:
+                        applications.add(backend_application)
 
-                routegroup = [
-                    _rg.namespace,
-                    _rg.name,
-                    application or backend_application,
-                    hosts,
-                ]
-                cluster_summary["routegroups"].append(routegroup)
+            if not applications:
+                # unknown app
+                applications.add("")
+
+            for app in applications:
+                # add one entry by host to be consistent with how Ingresses are handled in kube-resource-report
+                for host in hosts:
+                    routegroup = [
+                        _rg.namespace,
+                        _rg.name,
+                        app,
+                        host,
+                    ]
+                    cluster_summary["routegroups"].append(routegroup)
 
     if enable_ingressroutes:
         for _ir in IngressRoute.objects(cluster.client, namespace=pykube.all):
