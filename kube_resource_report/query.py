@@ -530,7 +530,9 @@ def query_cluster(
     if enable_routegroups:
         for _rg in RouteGroup.objects(cluster.client, namespace=pykube.all):
             application = get_application_from_labels(_rg.labels)
-            hosts = _rg.obj["spec"]["hosts"]
+            # Skipper docs say that "Hosts" is mandatory, but there are CRDs without "hosts"..
+            # (https://opensource.zalando.com/skipper/kubernetes/routegroup-crd/#hosts)
+            hosts = _rg.obj["spec"].get("hosts", [""])
 
             applications = set()
             if application:
