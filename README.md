@@ -6,6 +6,9 @@ Kubernetes Resource Report
 [![Docker pulls](https://img.shields.io/docker/pulls/hjacobs/kube-resource-report.svg)](https://hub.docker.com/r/hjacobs/kube-resource-report)
 [![Calendar Versioning](https://img.shields.io/badge/calver-YY.MM.MICRO-22bfda.svg)](http://calver.org)
 
+⚠️  **IMPORTANT SECURITY NOTICE**: Kubernetes Resource Report does not provide any access control to the generated HTML report.
+You are responsible to properly secure your installation to not expose internal infrastructure details to the public internet!
+
 **This version only supports node costs for AWS EC2 (all regions, On
 Demand, Linux) and GKE/GCP machine types (all regions, On Demand,
 without sustained discount)**
