@@ -2,12 +2,27 @@
 
 # HELP monthly_cost_total The total monthly cost for the cluster
 {% for cluster_id, summary in cluster_summaries.items() %}
-monthly_cost_total{clusterName="{{ summary.cluster.name }}",workerNodeCount="{{summary.worker_nodes}}",masterNodeCount="{{summary.master_nodes}}",podCount="{{summary.pods|count}}"} {{ summary.cost }} {{ now|unix_timestamp }}
+monthly_cost_total{clusterName="{{ summary.cluster.name }}"} {{ summary.cost }} {{ now|unix_timestamp }}
 {% endfor %}
 
 # HELP monthly_slack_total The total monthly slack for the cluster
 {% for cluster_id, summary in cluster_summaries.items() %}
-monthly_slack_total{clusterName="{{ summary.cluster.name }}",workerNodeCount="{{summary.worker_nodes}}",masterNodeCount="{{summary.master_nodes}}",podCount="{{summary.pods|count}}"} {{ summary.slack_cost }} {{ now|unix_timestamp }}
+monthly_slack_total{clusterName="{{ summary.cluster.name }}"} {{ summary.slack_cost }} {{ now|unix_timestamp }}
+{% endfor %}
+
+# HELP kube_resource_report_master_nodes Number of control-planes in a cluster.
+{% for cluster_id, summary in cluster_summaries.items() %}
+kube_resource_report_master_nodes{clusterName="{{ summary.cluster.name }}"} {{summary.master_nodes}} {{ now|unix_timestamp }}
+{% endfor %}
+
+# HELP kube_resource_report_pods Number of pods in a cluster.
+{% for cluster_id, summary in cluster_summaries.items() %}
+kube_resource_report_pods{clusterName="{{ summary.cluster.name }}"} {{summary.pods|count}} {{ now|unix_timestamp }}
+{% endfor %}
+
+# HELP kube_resource_report_worker_nodes Number of workers in a cluster.
+{% for cluster_id, summary in cluster_summaries.items() %}
+kube_resource_report_worker_nodes{clusterName="{{ summary.cluster.name }}"} {{summary.worker_nodes}} {{ now|unix_timestamp }}
 {% endfor %}
 
 # HELP monthly_node_cost The monthly cost of each node
