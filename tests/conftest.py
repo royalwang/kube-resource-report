@@ -107,7 +107,7 @@ def fake_responses():
                 },
             ]
         },
-        ("networking.k8s.io/v1beta1", "ingresses"): {
+        ("networking.k8s.io/v1", "ingresses"): {
             "items": [
                 {
                     "metadata": {"name": "ing-1", "namespace": "default"},
